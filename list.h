@@ -88,7 +88,18 @@ class List {
           for (int i=0; i<position; i++) temporalnode = temporalnode->next;
           return temporalnode->data;
         };
-        void concat(List<T> &other){};
+        void concat(List<T> &other){
+          if (!other.empty()){
+            if (this->empty()) this->head=other.head; // If this empty but other full
+            else { //both full
+              this->tail->next = other.head;
+            }
+          }
+          this->tail = other.tail;
+
+          //Modify list size
+          this->nodes+=other.size();
+        };
         bool empty(){
           return !this->head;
         };

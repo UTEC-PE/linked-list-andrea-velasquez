@@ -34,6 +34,14 @@ int main(){
   cout << "lista.print_reverse: ";
   lista.print_reverse();
 
+  List<int> otralista;
+  for (int i=0; i<3; i++){ otralista.push_back(10); otralista.push_front(11); }
+  cout <<"otralista: ";
+  otralista.print();
+  cout << "lista.concat(otralista): ";
+  lista.concat(otralista);
+  lista.print();
+
   cout << "lista.clear()\n";
   lista.clear();
   cout << "lista.empty(): " << lista.empty()<<endl;
