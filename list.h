@@ -14,7 +14,14 @@ class List {
         Node<T>* tail;
         int nodes;
 
-        void print_reverse(Node<T>* head);
+        void print_reverse(Node<T>* head){
+          //Keep calling method until it reaches the end
+          if (head){
+            this->print_reverse(head->next);
+            //Print current head data from tail to actual head
+            cout << head->data << " ";
+          }
+        };
 
     public:
         List(): head(NULL), tail(NULL), nodes(0) {};
@@ -60,9 +67,28 @@ class List {
           //List size decreases by 1
           this->nodes--;
         };
-        void pop_back(){};
-        T get(int position){};
-        void concat(List<T> &other);
+        void pop_back(){
+          if (this->empty()) throw "Can not delete element in empty list";
+          Node<T>* secondlast = this->head;
+          while (secondlast->next && secondlast->next->next){
+            secondlast = secondlast->next;
+          }
+          //Erase content of previous tail
+          delete secondlast->next;
+          //Change tail for second last node
+          secondlast->next = NULL;
+          this->tail = secondlast;
+
+          //List size decreases by 1
+          this->nodes--;
+        };
+        T get(int position){
+          if (this->empty() || position >= this->nodes) throw "No element in empty list";
+          Node<T>* temporalnode = this->head;
+          for (int i=0; i<position; i++) temporalnode = temporalnode->next;
+          return temporalnode->data;
+        };
+        void concat(List<T> &other){};
         bool empty(){
           return !this->head;
         };
@@ -74,11 +100,22 @@ class List {
               cout << temporalnode->data << " ";
               temporalnode = temporalnode->next;
             }
+            cout <<endl;
           }
           else throw "No element in empty list";
         };
-        void print_reverse();
-        void clear();
+        void print_reverse(){
+          if (this->empty()) throw "No element in empty list";
+          this->print_reverse(this->head);
+          cout <<endl;
+        };
+        void clear(){
+          if (!this->empty()){
+            this->head->killSelf();
+            head=tail=NULL;
+            this->nodes=0;
+          }
+        }
         Iterator<T> begin();
         Iterator<T> end();
 

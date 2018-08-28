@@ -3,24 +3,42 @@
 
 int main(){
   List<int> lista;
-  cout <<"Is empty?: " << lista.empty()<<endl;
 
+  cout << "lista.empty(): " << lista.empty()<<endl;
+
+  cout << "lista.push_front: ";
   lista.push_front(1);
   lista.push_front(2);
-  lista.push_back(99);
-  lista.push_back(32);
   lista.push_front(3);
-
-  cout << "\nAdding elements...\n";
-  cout << "Linked list: ";
   lista.print();
 
+  cout << "lista.push_back: ";
+  lista.push_back(4);
+  lista.push_back(5);
+  lista.print();
+
+  cout << "lista.front(): " << lista.front() << endl;
+
+  cout << "lista.back(): " << lista.back() << endl;
+
+  cout << "lista.pop_front(): ";
   lista.pop_front();
-  cout << "\n\nRemoving first element...";
-  cout << "\nLinked list: ";
   lista.print();
 
-  cout << "\n\nThe list has " << lista.size() <<" elements";
+  cout << "lista.pop_back(): ";
+  lista.pop_back();
+  lista.print();
+
+  cout << "lista.get(2): " << lista.get(2) << endl;
+
+  cout << "lista.print_reverse: ";
+  lista.print_reverse();
+
+  cout << "lista.clear()\n";
+  lista.clear();
+  cout << "lista.empty(): " << lista.empty()<<endl;
+
+  cout << "lista.size(): " << lista.size();
 
   return EXIT_SUCCESS;
 }

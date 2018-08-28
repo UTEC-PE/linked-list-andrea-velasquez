@@ -11,14 +11,14 @@ Implement all the functions in the .h
 - [x] void push_front(T value)
 - [x] void push_back(T value)
 - [x] void pop_front()
-- [ ] void pop_back()
-- [ ] T get(int position)
+- [x] void pop_back()
+- [x] T get(int position)
 - [ ] void concat(List<T> &other)
 - [x] bool empty()
 - [x] int size()
 - [x] void print()
-- [ ] void print_reverse()
-- [ ] void clear()
+- [x] void print_reverse()
+- [x] void clear()
 
 ### node.h
 - [x] void killSelf()
