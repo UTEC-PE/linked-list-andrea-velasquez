@@ -17,13 +17,15 @@ class List {
         void print_reverse(Node<T>* head);
 
     public:
-         List() {
-          this->head = this->tail = NULL;
-          this->nodes=0;
+        List(): head(NULL), tail(NULL), nodes(0) {};
+        T front(){
+          if (this->head) return this->head->data;
+          throw "No element in empty list";
         };
-
-        T front(){ return this->head->data; } ;
-        T back(){ return this->tail->data; };
+        T back(){
+          if (this->tail) return this->tail->data;
+          throw "No element in empty list";
+        };
         void push_front(T value){
           //Create new node
           Node<T>* newnode = new Node<T>;
@@ -51,6 +53,7 @@ class List {
           this->nodes++;
         };
         void pop_front(){
+          if (this->empty()) throw "Can not delete element in empty list";
           Node<T>* secondnode = this->head->next;
           this->head = secondnode;
 
@@ -61,15 +64,18 @@ class List {
         T get(int position){};
         void concat(List<T> &other);
         bool empty(){
-          return this->head==NULL;
+          return !this->head;
         };
         int size(){ return nodes; };
         void print(){
-          Node<T>* temporalnode = this->head;
-          while (temporalnode){
-            cout << temporalnode->data << " ";
-            temporalnode = temporalnode->next;
+          if (!this->empty()){
+            Node<T>* temporalnode = this->head;
+            while (temporalnode){
+              cout << temporalnode->data << " ";
+              temporalnode = temporalnode->next;
+            }
           }
+          else throw "No element in empty list";
         };
         void print_reverse();
         void clear();
