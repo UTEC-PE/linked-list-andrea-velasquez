@@ -24,7 +24,7 @@ class List {
         };
 
     public:
-        List(): head(NULL), tail(NULL), nodes(0) {};
+        List(): head(nullptr), tail(nullptr), nodes(0) {};
         T front(){
           if (this->head) return this->head->data;
           throw "No element in empty list";
@@ -49,7 +49,7 @@ class List {
           //Create new node
           Node<T>* newnode = new Node<T>;
           newnode->data = value;
-          newnode->next = NULL;
+          newnode->next = nullptr;
           //Make tail point new node
           if (!this->empty()) { this->tail->next = newnode; }
           else{ this->head=newnode; }
@@ -76,7 +76,7 @@ class List {
           //Erase content of previous tail
           delete secondlast->next;
           //Change tail for second last node
-          secondlast->next = NULL;
+          secondlast->next = nullptr;
           this->tail = secondlast;
 
           //List size decreases by 1
@@ -112,7 +112,7 @@ class List {
         void clear(){
           if (!this->empty()){
             this->head->killSelf();
-            head=tail=NULL;
+            head=tail=nullptr;
             this->nodes=0;
           }
         }
