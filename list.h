@@ -88,7 +88,7 @@ class List {
           for (int i=0; i<position; i++) temporalnode = temporalnode->next;
           return temporalnode->data;
         };
-        void concat(List<T> *other){
+        void concat(List<T> *other){ // Solo habría que revisar esta función para que utlice & en vez de puntero
           if (!other->empty()){
             if (this->empty()) this->head=other->head; // If this empty but other full
             else { //both full

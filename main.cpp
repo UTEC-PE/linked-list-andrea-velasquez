@@ -1,52 +1,88 @@
-#include "list.h"
 #include <iostream>
+#include <random>
+#include <assert.h>
+#include <string.h>
 
-int main(){
-  List<int>* lista = new List<int>;
+#include "list.h"
 
-  cout << "lista->empty(): " << lista->empty()<<endl;
+using namespace std;
 
-  cout << "lista->push_front: ";
-  lista->push_front(1);
-  lista->push_front(2);
-  lista->push_front(3);
-  lista->print();
+#define MIN 100
+#define MAX 500
 
-  cout << "lista->push_back: ";
-  lista->push_back(4);
-  lista->push_back(5);
-  lista->print();
+#define PUSH_FRONT 0
+#define PUSH_BACK 1
 
-  cout << "lista->front(): " << lista->front() << endl;
+#define POP_FRONT 2
+#define POP_BACK 3
 
-  cout << "lista->back(): " << lista->back() << endl;
+int generateRandomInt(int min, int max);
+void insertIntoList(List<int> &numbers);
+void removeFromList(List<int> &numbers);
 
-  cout << "lista->pop_front(): ";
-  lista->pop_front();
-  lista->print();
+int main(int argc, char *argv[]) {
+    cout << "===========================================================" << endl;
+    cout << "\tDouble Linked Circular List Practice" << endl;
+    cout << "===========================================================" << endl << endl;
 
-  cout << "lista->pop_back(): ";
-  lista->pop_back();
-  lista->print();
+    List<int> test, test1;
 
-  cout << "lista->get(2): " << lista->get(2) << endl;
+    const int numberOfElements = generateRandomInt(MIN, MAX);
+    for (int i = 0; i < numberOfElements; i++) {
+        insertIntoList(test);
+    }
 
-  cout << "lista->print_reverse: ";
-  lista->print_reverse();
+    assert(test.size() == numberOfElements && "Something is wrong with the push methods");
 
-  List<int>* otralista = new List<int>;
-  for (int i=0; i<3; i++){ otralista->push_back(10); otralista->push_front(11); }
-  cout <<"otralista: ";
-  otralista->print();
-  cout << "lista->concat(&otralista): ";
-  lista->concat(otralista);
-  lista->print();
+    const int elementsToRemove = generateRandomInt(0, MIN - 1);
+    for (int i = 0; i < elementsToRemove; i++) {
+        removeFromList(test);
+    }
 
-  cout << "lista->clear()\n";
-  lista->clear();
-  cout << "lista->empty(): " << lista->empty()<<endl;
+    const int newNumbersSize = numberOfElements - elementsToRemove;
+    assert(test.size() == newNumbersSize && "Something is wrong with the pop functions");
 
-  cout << "lista->size(): " << lista->size();
+    test.clear();
+    assert(test.empty() && "Something is wrong with the clear or empty methods");
+    assert(test.size() == 0 && "Something is wrong with the clear method");
 
-  return EXIT_SUCCESS;
+    for (int i = 0; i < numberOfElements; i++) {
+        insertIntoList(test);
+    }
+
+    test.print();
+
+    const int sizeTemp = test.size();
+    test1.push_front(generateRandomInt(0, 100));
+    test.concat(&test1);
+
+    assert(test.size() == sizeTemp + 1 && "Something is wrong with the concat method");
+
+    system("read");
+    return EXIT_SUCCESS;
 }
+
+int generateRandomInt(int min, int max) {
+    mt19937 rng;
+    rng.seed(random_device()());
+    uniform_int_distribution<mt19937::result_type> distribution(min, max); 
+    return distribution(rng);
+}
+
+void insertIntoList(List<int> &numbers) {
+    const int numberToInsert = generateRandomInt(0, 100);
+
+    const int action = generateRandomInt(0, 1);
+    switch (action) {
+        case PUSH_FRONT: numbers.push_front(numberToInsert); break;
+        case PUSH_BACK: numbers.push_back(numberToInsert); break;
+    }
+} 
+
+void removeFromList(List<int> &numbers) {
+    const int action = generateRandomInt(2, 3);
+    switch (action) {
+        case POP_FRONT: numbers.pop_front(); break;
+        case POP_BACK: numbers.pop_back(); break;
+    }
+} 
